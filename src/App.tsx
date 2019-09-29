@@ -1,10 +1,19 @@
-import React from 'react';
-import {setModel, useModel} from './library'
+import React, {memo} from 'react'
+import {selectModel, setModel, useModel} from './library'
 import {useCounter} from './model/counter'
 import {useCounterDouble} from './model/counterDouble'
 
 setModel('counter', useCounter)
 setModel('counterDouble', useCounterDouble)
+
+const SelectModelDemo = memo(() => {
+  const counter = selectModel('counterDouble') // FIXME: 基于字符串的model获取很难做ts的类型推断
+  return (
+    <div>
+      value retrieved by `selectModel`: {counter.count}
+    </div>
+  )
+})
 
 const App: React.FC = () => {
   const counter = useModel('counterDouble')
@@ -15,6 +24,8 @@ const App: React.FC = () => {
       </h1>
       <button onClick={counter.increment}>increment</button>
       <button onClick={counter.decrement}>increment</button>
+      <hr/>
+      <SelectModelDemo/>
     </div>
   );
 }

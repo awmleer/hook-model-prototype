@@ -57,3 +57,8 @@ export function useModel<T = any>(key: string) {
   }, [container])
   return state
 }
+
+export function selectModel<T = any>(key: string) {
+  const container = modelMap.get(key)
+  return container ? container.data as T : undefined
+}
