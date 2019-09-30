@@ -1,6 +1,6 @@
 import * as ReactDOM from "react-dom"
 import * as React from "react"
-import {ComponentType, FC, useDebugValue, useEffect, useState} from 'react'
+import {ComponentType, FC, useDebugValue, useEffect, useRef, useState} from 'react'
 
 type ModelHook<T> = () => T
 
@@ -45,14 +45,27 @@ export function setModel<T>(key: string, model: ModelHook<T>) {
   )
 }
 
-export function useModel<T = unknown>(key: string) {
+type Deps<T> = (model: T) => unknown[]
+
+export function useModel<T = unknown>(key: string, deps?: Deps<T>) {
   useDebugValue(key)
   const container = modelMap.get(key) as Container<T>
   const [state, setState] = useState<T | undefined>(() => container ? container.data as T : undefined)
+  const depsRef = useRef<unknown[]>([])
   useEffect(() => {
     if (!container) return
     function subscriber(val: T) {
-      setState(val)
+      if (!deps) {
+        setState(val)
+      } else {
+        const oldDeps = depsRef.current
+        const newDeps = deps(val)
+        if (compare(oldDeps, newDeps)) {
+          setState(val)
+        }
+        depsRef.current = newDeps
+      }
+
     }
     container.subscribers.add(subscriber)
     return () => {
@@ -90,3 +103,17 @@ export function withModel<T = unknown>(key: string) {
     return Wrapper
   }
 }
+
+function compare(oldDeps: unknown[], newDeps: unknown[]) {
+  console.log(oldDeps, newDeps)
+  if (oldDeps.length !== newDeps.length) {
+    return true
+  }
+  for (const index in newDeps) {
+    if (oldDeps[index] !== newDeps[index]) {
+      return true
+    }
+  }
+  return false
+}
+

@@ -3,6 +3,7 @@ import {useModel} from './library'
 import {useCounterDouble} from './model/counterDouble'
 import {SelectModelDemo} from './SelectModelDemo'
 import WithModelDemo from './WithModelDemo'
+import {DepsDemo} from './DepsDemo'
 
 const App: React.FC = () => {
   const counter = useModel<ReturnType<typeof useCounterDouble>>('counterDouble')
@@ -17,6 +18,8 @@ const App: React.FC = () => {
       <SelectModelDemo/>
       <hr/>
       <WithModelDemo/>
+      <hr/>
+      <DepsDemo/>
     </div>
   );
 }
