@@ -105,7 +105,6 @@ export function withModel<T = unknown>(key: string) {
 }
 
 function compare(oldDeps: unknown[], newDeps: unknown[]) {
-  console.log(oldDeps, newDeps)
   if (oldDeps.length !== newDeps.length) {
     return true
   }
