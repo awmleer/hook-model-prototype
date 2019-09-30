@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {setModel} from './library'
+import {useCounter} from './model/counter'
+import {useCounterDouble} from './model/counterDouble'
+
+setModel('counter', useCounter)
+setModel('counterDouble', useCounterDouble)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

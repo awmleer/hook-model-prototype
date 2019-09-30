@@ -8037,9 +8037,9 @@ react-dev-utils@^9.0.4:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-dom@16.10.1:
+react-dom@^16.10.1:
   version "16.10.1"
-  resolved "https://registry.npm.alibaba-inc.com/react-dom/download/react-dom-16.10.1.tgz#479a6511ba34a429273c213cbc2a9ac4d296dac1"
+  resolved "https://registry.npm.taobao.org/react-dom/download/react-dom-16.10.1.tgz#479a6511ba34a429273c213cbc2a9ac4d296dac1"
   integrity sha1-R5plEbo0pCknPCE8vCqaxNKW2sE=
   dependencies:
     loose-envify "^1.1.0"
@@ -8118,9 +8118,9 @@ react-scripts@3.1.2:
   optionalDependencies:
     fsevents "2.0.7"
 
-react@16.10.1:
+react@^16.10.1:
   version "16.10.1"
-  resolved "https://registry.npm.alibaba-inc.com/react/download/react-16.10.1.tgz#967c1e71a2767dfa699e6ba702a00483e3b0573f"
+  resolved "https://registry.npm.taobao.org/react/download/react-16.10.1.tgz#967c1e71a2767dfa699e6ba702a00483e3b0573f"
   integrity sha1-lnwecaJ2ffppnmunAqAEg+OwVz8=
   dependencies:
     loose-envify "^1.1.0"
