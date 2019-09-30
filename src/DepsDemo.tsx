@@ -8,6 +8,7 @@ export const DepsDemo = memo(() => {
   updateCountRef.current++
   return (
     <div>
+      <h2>Deps</h2>
       This component has been rendered {updateCountRef.current} times.
       <br/>
       Counter model: {counter.count}

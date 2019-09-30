@@ -12,6 +12,7 @@ class WithModelDemo extends Component<Props> {
   render() {
     return (
       <div>
+        <h2>With Model</h2>
         {this.props.model.counter.count}
       </div>
     )

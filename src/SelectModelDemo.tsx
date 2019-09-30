@@ -8,6 +8,7 @@ export const SelectModelDemo = memo(() => {
 
   return (
     <div>
+      <h2>Select Model</h2>
       value retrieved by `selectModel`: {counter.count}
       <button onClick={() => {setState({})}}>Update</button>
     </div>
