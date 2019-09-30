@@ -1,6 +1,6 @@
 import * as ReactDOM from "react-dom"
 import * as React from "react"
-import {useEffect, useState} from 'react'
+import {ComponentType, FC, useEffect, useState} from 'react'
 
 type ModelHook<T> = () => T
 
@@ -61,4 +61,28 @@ export function useModel<T = unknown>(key: string) {
 export function selectModel<T = unknown>(key: string) {
   const container = modelMap.get(key) as Container<T>
   return container ? container.data as T : undefined
+}
+
+export interface WithModelProps {
+  model: {
+    [key: string]: unknown
+  }
+}
+
+export function withModel<T = unknown>(key: string) {
+  return function<P extends WithModelProps>(C: ComponentType<P>) {
+    const Wrapper: FC<Omit<P, 'model'>> = function(props) {
+      const componentProps: P = {
+        ...props,
+        model: {
+          [key]: useModel(key)
+        }
+      } as unknown as P
+      return (
+        <C {...componentProps}/>
+      )
+    }
+    Wrapper.displayName = `${C.displayName}Wrapper`
+    return Wrapper
+  }
 }

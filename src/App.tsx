@@ -2,6 +2,7 @@ import React from 'react'
 import {useModel} from './library'
 import {useCounterDouble} from './model/counterDouble'
 import {SelectModelDemo} from './SelectModelDemo'
+import WithModelDemo from './WithModelDemo'
 
 const App: React.FC = () => {
   const counter = useModel<ReturnType<typeof useCounterDouble>>('counterDouble')
@@ -14,6 +15,8 @@ const App: React.FC = () => {
       <button onClick={counter.decrement}>increment</button>
       <hr/>
       <SelectModelDemo/>
+      <hr/>
+      <WithModelDemo/>
     </div>
   );
 }
