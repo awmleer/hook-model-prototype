@@ -47,19 +47,21 @@ export function setModel<T>(key: string, model: ModelHook<T>) {
 
 type Deps<T> = (model: T) => unknown[]
 
-export function useModel<T = unknown>(key: string, deps?: Deps<T>) {
+export function useModel<T = unknown>(key: string, depsFn?: Deps<T>) {
   useDebugValue(key)
   const container = modelMap.get(key) as Container<T>
   const [state, setState] = useState<T | undefined>(() => container ? container.data as T : undefined)
+  const depsFnRef = useRef<Deps<T>>()
+  depsFnRef.current = depsFn
   const depsRef = useRef<unknown[]>([])
   useEffect(() => {
     if (!container) return
     function subscriber(val: T) {
-      if (!deps) {
+      if (!depsFnRef.current) {
         setState(val)
       } else {
         const oldDeps = depsRef.current
-        const newDeps = deps(val)
+        const newDeps = depsFnRef.current(val)
         if (compare(oldDeps, newDeps)) {
           setState(val)
         }
