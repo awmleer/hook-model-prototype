@@ -1,9 +1,9 @@
 import React from 'react'
-import {useModel} from './library'
+import {useModel} from '../library'
 import {SelectModelDemo} from './SelectModelDemo'
 import WithModelDemo from './WithModelDemo'
 import {DepsDemo} from './DepsDemo'
-import {useCounter} from './model/counter'
+import {useCounter} from '../model/counter'
 
 const App: React.FC = () => {
   const counter = useModel<ReturnType<typeof useCounter>>('counter')

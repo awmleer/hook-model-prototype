@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {withModel, WithModelProps} from './library'
-import {useCounter} from './model/counter'
+import {withModel, WithModelProps} from '../library'
+import {useCounter} from '../model/counter'
 
 interface Props extends WithModelProps {
   model: {

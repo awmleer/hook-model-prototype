@@ -1,6 +1,6 @@
 import React, {memo, useRef} from 'react'
-import {useModel} from './library'
-import {useCounter} from './model/counter'
+import {useModel} from '../library'
+import {useCounter} from '../model/counter'
 
 export const DepsDemo = memo(() => {
   const counter = useModel<ReturnType<typeof useCounter>>('counter', (counter) => [Math.floor(counter.count / 10)])
