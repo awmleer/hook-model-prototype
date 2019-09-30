@@ -7,7 +7,7 @@ setModel('counter', useCounter)
 setModel('counterDouble', useCounterDouble)
 
 const SelectModelDemo = memo(() => {
-  const counter = selectModel('counterDouble') // FIXME: 基于字符串的model获取很难做ts的类型推断
+  const counter = selectModel('counterDouble') as any // FIXME: 基于字符串的model获取很难做ts的类型推断
   return (
     <div>
       value retrieved by `selectModel`: {counter.count}
@@ -16,7 +16,7 @@ const SelectModelDemo = memo(() => {
 })
 
 const App: React.FC = () => {
-  const counter = useModel('counterDouble')
+  const counter = useModel<ReturnType<typeof useCounterDouble>>('counterDouble')
   return (
     <div className="App">
       <h1>

@@ -8,7 +8,7 @@ const modelMap = new Map<string, Container>()
 
 type Subscriber<T> = (data: T) => void
 
-class Container<T = any> {
+class Container<T = unknown> {
   subscribers = new Set<Subscriber<T>>()
   data!: T
 
@@ -42,9 +42,9 @@ export function setModel<T>(key: string, model: ModelHook<T>) {
   )
 }
 
-export function useModel<T = any>(key: string) {
-  const container = modelMap.get(key)
-  const [state, setState] = useState(() => container ? container.data as T : undefined)
+export function useModel<T = unknown>(key: string) {
+  const container = modelMap.get(key) as Container<T>
+  const [state, setState] = useState<T | undefined>(() => container ? container.data as T : undefined)
   useEffect(() => {
     if (!container) return
     function subscriber(val: T) {
@@ -55,10 +55,10 @@ export function useModel<T = any>(key: string) {
       container.subscribers.delete(subscriber)
     }
   }, [container])
-  return state
+  return state!
 }
 
-export function selectModel<T = any>(key: string) {
-  const container = modelMap.get(key)
+export function selectModel<T = unknown>(key: string) {
+  const container = modelMap.get(key) as Container<T>
   return container ? container.data as T : undefined
 }
