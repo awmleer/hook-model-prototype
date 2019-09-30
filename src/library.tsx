@@ -4,16 +4,19 @@ import {ComponentType, FC, useEffect, useState} from 'react'
 
 type ModelHook<T> = () => T
 
-const modelMap = new Map<string, Container>()
+const modelMap = new Map<string, Container<any>>()
 
 type Subscriber<T> = (data: T) => void
 
 class Container<T = unknown> {
+  constructor(
+    public hook: ModelHook<T>
+  ) {}
   subscribers = new Set<Subscriber<T>>()
   data!: T
 
   notify() {
-    console.log('notify', this.data)
+    console.log(this.hook.name, this.data)
     for (const subscriber of this.subscribers) {
       subscriber(this.data)
     }
@@ -31,7 +34,7 @@ function Executor<T>(props: {
 
 export function setModel<T>(key: string, model: ModelHook<T>) {
   const element = document.createElement("div")
-  const container = new Container()
+  const container = new Container(model)
   modelMap.set(key, container)
   ReactDOM.render(
     <Executor onUpdate={(val) => {
